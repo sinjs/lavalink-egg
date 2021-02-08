@@ -1,0 +1,41 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v1",
+        "update_url": null
+    },
+    "exported_at": "2021-02-08T08:51:56+01:00",
+    "name": "Lavalink Server",
+    "author": "sinmineryt@gmail.com",
+    "description": "Lavalink is an audio proxy server.",
+    "features": null,
+    "images": [
+        "quay.io\/parkervcp\/pterodactyl-images:debian_openjdk-15"
+    ],
+    "file_denylist": "",
+    "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{LAVALINK_JAR}}",
+    "config": {
+        "files": "{\r\n}",
+        "startup": "{\r\n    \"done\": \"Started Launcher in \"\r\n}",
+        "logs": "{}",
+        "stop": "SIGINT"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n# Lavalink Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\necho \"* [Info] Installing your server, please wait...\"\r\n\r\necho \"* [Debug] Removing the old Lavalink file...\"\r\n\r\necho \"* [Debug] Running rm \/home\/container\/Lavalink.jar\"\r\nrm \/mnt\/server\/Lavalink.jar\r\n\r\necho \"* [Debug] Running rm \/home\/container\/application.yml\"\r\nrm \/mnt\/server\/application.yml\r\n\r\necho \"* [Debug] Running apt-get update\"\r\napt-get update\r\n\r\necho \"* [Debug] Running apt-get install curl wget bash -y\"\r\napt-get install curl wget bash -y\r\n\r\necho \"* [Debug] Running cd \/mnt\/server\"\r\ncd \/mnt\/server\r\n\r\necho \"* [Debug] Running wget https:\/\/sinmineryt.ga\/download\/Lavalink.jar\"\r\nwget https:\/\/sinmineryt.ga\/download\/Lavalink.jar\r\n\r\necho \"* [Debug] Creating the configuration..\"\r\n\r\n# Create Configuration\r\necho 'server: # REST and WS server\r\n  port: 8080 # Please change that to the port of the server\r\n  address: 0.0.0.0\r\nlavalink:\r\n  server:\r\n    password: \"YOUR_PASSWORD_HERE\" # Change that!\r\n    sources:\r\n      youtube: true\r\n      bandcamp: false\r\n      soundcloud: true\r\n      twitch: false\r\n      vimeo: false\r\n      mixer: false\r\n      http: false\r\n      local: false\r\n    bufferDurationMs: 400\r\n    youtubePlaylistLoadLimit: 6 # Number of pages at 100 each\r\n    youtubeSearchEnabled: true\r\n    soundcloudSearchEnabled: true\r\n    gc-warnings: true\r\n    #ratelimit:\r\n      #ipBlocks: [\"1.0.0.0\/8\", \"...\"] # list of ip blocks\r\n      #excludedIps: [\"...\", \"...\"] # ips which should be explicit excluded from usage by lavalink\r\n      #strategy: \"RotateOnBan\" # RotateOnBan | LoadBalance | NanoSwitch | RotatingNanoSwitch\r\n      #searchTriggersFail: true # Whether a search 429 should trigger marking the ip as failing\r\n      #retryLimit: -1 # -1 = use default lavaplayer value | 0 = infinity | >0 = retry will happen this numbers times\r\n\r\nmetrics:\r\n  prometheus:\r\n    enabled: false\r\n    endpoint: \/metrics\r\n\r\nsentry:\r\n  dsn: \"\"\r\n#  tags:\r\n#    some_key: some_value\r\n#    another_key: another_value\r\n\r\n  level:\r\n    root: INFO\r\n    lavalink: INFO' >> application.yml\r\n\r\n\r\necho \"* [Info] Finished installing your server!\"\r\necho \"* [Info] What to do now:\"\r\necho \"* [Info] Start the server by clicking on the start button\"\r\necho \"* [Info] Don\\'t forget to edit the application.yml!\"",
+            "container": "debian:buster",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Lavalink Jar File",
+            "description": "The lavalink.jar file that's getting ran.",
+            "env_variable": "JAVALINK_JAR",
+            "default_value": "Lavalink.jar",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:25"
+        }
+    ]
+}
