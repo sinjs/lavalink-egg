@@ -31,7 +31,7 @@
         {
             "name": "Lavalink Jar File",
             "description": "The lavalink.jar file that's getting ran.",
-            "env_variable": "JAVALINK_JAR",
+            "env_variable": "LAVALINK_JAR",
             "default_value": "Lavalink.jar",
             "user_viewable": true,
             "user_editable": true,
